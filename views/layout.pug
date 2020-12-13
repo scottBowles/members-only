@@ -1,0 +1,27 @@
+doctype html
+html#top(lang="en")
+  head
+    title= title
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    link(rel="stylesheet", href="/stylesheets/reset.css")
+    link(rel="stylesheet", href="/stylesheets/style.css")
+  body
+    header#header
+      nav
+        if currentUser
+          #userName= currentUser.fullName
+        ol
+          li
+            a(href="/") Home
+          if !currentUser
+            li
+              a(href="/sign-up") Sign up
+            li
+              a(href="/log-in") Log in
+          else
+            li
+              a(href="/log-out") Log out
+            
+    
+    block content

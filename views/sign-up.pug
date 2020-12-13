@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  main
+    form(action="", method="post")
+      label(for="firstName") First Name
+      input(type="text" name="firstName")
+      label(for="lastName") Last Name
+      input(type="text" name="lastName")
+      label(for="username") Username
+      input(type="text" name="username")
+      label(for="password") Password
+      input(type="text" name="password")
+      button(type="submit")

@@ -3,34 +3,32 @@ const passport = require('passport');
 const _ = require('lodash');
 const User = require('../models/user');
 
-exports.index = (req, res) => {
-  console.log('index');
-  res.send({ user: req.user });
-};
+exports.index = (req, res) => res.render('index');
 
-exports.signup_get = (req, res) => {
-  res.send('sign-up get');
-};
+exports.signup_get = (req, res) => res.render('sign-up');
 
 exports.signup_post = async (req, res, next) => {
-  console.log('sign-up post');
+  try {
+    let user = await User.findOne({ username: req.body.username });
+    if (user) return res.status(400).send('User already registered');
 
-  let user = await User.findOne({ username: req.body.username });
-  if (user) return res.status(400).send('User already registered');
+    user = new User(
+      _.pick(req.body, ['username', 'password', 'firstName', 'lastName'])
+    );
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(req.body.password, salt);
 
-  user = new User(
-    _.pick(req.body, ['username', 'password', 'firstName', 'lastName'])
-  );
-  const salt = await bcrypt.genSalt(10);
-  user.password = await bcrypt.hash(req.body.password, salt);
-
-  user.save((err) => {
-    if (err) return next(err);
-    res.redirect('/');
-  });
+    user.save((err) => {
+      if (err) return next(err);
+      // Redirect the post req to /log-in so a newly signed-up user is automatically logged in
+      return res.redirect(307, '/log-in');
+    });
+  } catch (e) {
+    next(e);
+  }
 };
 
-exports.login_get = (req, res) => res.send('log-in get');
+exports.login_get = (req, res) => res.render('log-in');
 
 exports.login_post = passport.authenticate('local', {
   successRedirect: '/',
@@ -38,7 +36,6 @@ exports.login_post = passport.authenticate('local', {
 });
 
 exports.logout_get = (req, res) => {
-  console.log('log out');
   req.logout();
   res.redirect('/');
 };
