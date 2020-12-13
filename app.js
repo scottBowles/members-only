@@ -55,17 +55,3 @@ app.use('/users', userRouter);
 // --------------- SERVER ---------------
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}`));
-
-/**
- * ROUTES
- * R    /
- * CR   /log-in
- * R    /log-out
- * CR   /sign-up
- * R    /users
- * RUD  /users/:id
- * RU   /users/:id/join-the-club
- * R    /users/:id/new-message
- * RUD  /users/:id/messages
- * RUD  /users/:id/messages/:messageid
- */
