@@ -33,8 +33,9 @@ exports.user_page_delete = (req, res, next) => {
   res.send('user_page_delete not yet implemented');
 };
 
-exports.jointheclub_get = (req, res, next) => {
-  res.send('jointheclub_get not yet implemented');
+exports.jointheclub_get = async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  res.render('join-the-club', { user });
 };
 
 exports.jointheclub_put = (req, res, next) => {
