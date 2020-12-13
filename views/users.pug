@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  main
+    each user in users
+      .userDisplay
+        h3
+          a(href=`/users/${user._id}`)= user.fullName
+        p= user.username
+        p= user.messageCount

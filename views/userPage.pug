@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  main
+    h1= user.fullName
+    h4= user.username
+    each role in user.roles
+      p= role
+    h2= Messages
+    each message in user.messages
+      h4= message.title
+      p= message.text

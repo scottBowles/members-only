@@ -11,6 +11,8 @@ html#top(lang="en")
       nav
         if currentUser
           #userName= currentUser.fullName
+          each role in currentUser.roles.sort()
+            p= role
         ol
           li
             a(href="/") Home

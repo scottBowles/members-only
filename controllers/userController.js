@@ -6,10 +6,9 @@ exports.users_get = async (req, res) => {
 };
 
 exports.user_page_get = async (req, res) => {
-  const { currentUser } = req.locals;
   const { id } = req.params;
   const user = await User.findById(id);
-  return res.send({ user });
+  return res.render('userPage', { user });
 };
 
 exports.user_page_put = (req, res, next) => {
