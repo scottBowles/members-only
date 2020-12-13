@@ -45,8 +45,10 @@ exports.messages_get = (req, res, next) => {
   res.send('messages_get not yet implemented');
 };
 
-exports.message_get = (req, res, next) => {
-  res.send('message_get not yet implemented');
+exports.message_get = async (req, res, next) => {
+  const { messageid } = req.params;
+  const message = await Message.findById(messageid).populate('author');
+  res.render('message', { message });
 };
 
 exports.message_put = (req, res, next) => {
