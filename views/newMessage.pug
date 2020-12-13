@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  main
+    h1 New Message
+    form(action="", method="post")
+      div
+        label(for="title")
+        input(type="text" name="title")
+      div
+        label(for="text")
+        textarea(name="text", cols="30", rows="10")
+      button(type=submit)

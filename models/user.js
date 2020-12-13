@@ -14,17 +14,19 @@ UserSchema.virtual('fullName').get(function () {
   return `${this.firstName} ${this.lastName}`;
 });
 
-// Make sure this is working once we have messages
+UserSchema.virtual('messages', {
+  ref: 'Message',
+  localField: '_id',
+  foreignField: 'author',
+  justOne: false,
+  options: { sort: { timestamp: -1 } },
+});
 
-// UserSchema.virtual('messageCount', {
-//   ref: 'Message',
-//   localField: '_id',
-//   foreignField: 'author',
-//   count: true,
-// });
-// Until then:
-UserSchema.virtual('messageCount').get(function () {
-  return `1 (temp)`;
+UserSchema.virtual('messageCount', {
+  ref: 'Message',
+  localField: '_id',
+  foreignField: 'author',
+  count: true,
 });
 
 module.exports = mongoose.model('User', UserSchema);
