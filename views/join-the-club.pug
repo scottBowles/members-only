@@ -9,6 +9,9 @@ block content
     else
       h1= `Hey, ${user.firstName}. Wanna Join the Club?`
       p Become a member now! But only if you know the password...
-      form(action="", method="post")
-        label(for="password") Enter Secret Password
-        input(type="password", name="password")
+      form(action='', method='post')
+        label(for='password') Enter Secret Password
+        input(type='password', name='password')
+        button(type='submit')
+    if msg
+      p= msg

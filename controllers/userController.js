@@ -1,3 +1,4 @@
+require('dotenv').config();
 const _ = require('lodash');
 const User = require('../models/user');
 const Message = require('../models/message');
@@ -38,8 +39,17 @@ exports.jointheclub_get = async (req, res, next) => {
   res.render('join-the-club', { user });
 };
 
-exports.jointheclub_put = (req, res, next) => {
-  res.send('jointheclub_put not yet implemented');
+exports.jointheclub_post = async (req, res, next) => {
+  const { password } = req.body;
+  const user = await User.findById(req.params.id);
+  if (password === process.env.SUPER_SECRET_PASSWORD) {
+    if (!user.roles.includes('member')) {
+      user.roles.push('member');
+      await user.save();
+    }
+    return res.redirect(`/users/${user._id}`);
+  }
+  return res.render('join-the-club', { user, msg: 'Incorrect Password' });
 };
 
 exports.messages_get = (req, res, next) => {

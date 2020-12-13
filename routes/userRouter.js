@@ -1,6 +1,5 @@
 const express = require('express');
 const auth = require('../middleware/auth');
-const authIdOrAdmin = require('../middleware/authIdOrAdmin');
 const userController = require('../controllers/userController');
 
 const router = express.Router();
@@ -11,11 +10,11 @@ router.get('/new-message', auth('member'), userController.new_message_get);
 router.post('/new-message', auth('member'), userController.new_message_post);
 
 router.get('/:id', auth('member'), userController.user_page_get);
-router.put('/:id', authIdOrAdmin, userController.user_page_put);
-router.delete('/:id', authIdOrAdmin, userController.user_page_delete);
+router.put('/:id', auth(['self', 'admin']), userController.user_page_put);
+router.delete('/:id', auth(['self', 'admin']), userController.user_page_delete);
 
 router.get('/:id/join-the-club', userController.jointheclub_get);
-router.put('/:id/join-the-club', userController.jointheclub_put);
+router.post('/:id/join-the-club', userController.jointheclub_post);
 
 router.get('/:id/messages', auth('member'), userController.messages_get);
 
@@ -26,12 +25,12 @@ router.get(
 );
 router.put(
   '/:id/messages/:messageid',
-  authIdOrAdmin,
+  auth(['self', 'admin']),
   userController.message_put
 );
 router.delete(
   '/:id/messages/:messageid',
-  authIdOrAdmin,
+  auth(['self', 'admin']),
   userController.message_delete
 );
 
