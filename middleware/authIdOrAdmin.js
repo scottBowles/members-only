@@ -1,5 +1,5 @@
 module.exports = (req, res, next) => {
-  const { currentUser } = req.locals;
+  const currentUser = req.locals?.currentUser;
   const { id } = req.params;
   if (currentUser?.id === id || currentUser?.roles.includes('admin'))
     return next();
