@@ -2,7 +2,7 @@ const User = require('../models/user');
 
 exports.users_get = async (req, res) => {
   const users = await User.find();
-  res.send({ users });
+  res.render('users', { users });
 };
 
 exports.user_page_get = async (req, res) => {
@@ -34,14 +34,6 @@ exports.new_message_get = (req, res, next) => {
 
 exports.messages_get = (req, res, next) => {
   res.send('messages_get not yet implemented');
-};
-
-exports.messages_put = (req, res, next) => {
-  res.send('messages_put not yet implemented');
-};
-
-exports.messages_delete = (req, res, next) => {
-  res.send('messages_delete not yet implemented');
 };
 
 exports.message_get = (req, res, next) => {
