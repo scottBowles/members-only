@@ -6,6 +6,6 @@ module.exports = mongoose.model(
     title: { type: String, maxlength: 256, required: true },
     text: { type: String, maxlength: 5000 },
     timestamp: { type: Date, default: Date.now },
-    author: { type: mongoose.ObjectId, required: true },
+    author: { type: mongoose.ObjectId, ref: 'User', required: true },
   })
 );
