@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('/', auth('member'), userController.users_get);
 
-router.get('/:id', auth('member'), userController.user_page_get);
+router.get('/:id', auth(['member', 'self']), userController.user_page_get);
 router.put('/:id', auth('self'), userController.user_page_put);
 router.delete('/:id', auth('self'), userController.user_page_delete);
 
@@ -18,7 +18,11 @@ router.post('/:id/join-the-club', userController.jointheclub_post);
 router.get('/:id/messages/new', auth('self'), userController.new_message_get);
 router.post('/:id/messages/new', auth('self'), userController.new_message_post);
 
-router.get('/:id/messages', auth('member'), userController.messages_get);
+router.get(
+  '/:id/messages',
+  auth(['member', 'self']),
+  userController.messages_get
+);
 
 router.get(
   '/:id/messages/:messageid',
