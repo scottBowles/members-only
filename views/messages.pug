@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  main
+    h1= user.fullName
+    each message in user.messages
+      h3= message.title
+      p= message.text
+      p= message.timestamp
